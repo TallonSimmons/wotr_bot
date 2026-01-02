@@ -120,14 +120,13 @@ export const useInkStory = () => {
 
   const saveGame = useCallback(() => {
     const story = storyRef.current;
-    if (!story) return;
+    if (!story) return false;
 
     try {
       const saveState = story.state.toJson();
       localStorage.setItem('wotr-save-state', saveState);
       localStorage.setItem('wotr-warriors-mode', warriorsOfMiddleEarth.toString());
-      // Trigger a re-render to update hasSavedGame
-      setCurrentStep(prev => prev);
+      setSavedGameExists(true);
       return true;
     } catch (error) {
       console.error('Failed to save game:', error);
