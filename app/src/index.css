@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Custom fonts from legacy app */
+@font-face {
+  font-family: 'Aniron';
+  src: url('/fonts/Aniron.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RingbearerMedium';
+  src: url('/fonts/RingbearerMedium.ttf') format('truetype');
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Aniron', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* Tooltip styles from legacy app */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  font-style: italic;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -150px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-style: normal;
+  font-size: 14px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
