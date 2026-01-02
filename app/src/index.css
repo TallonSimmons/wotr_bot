@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom fonts from legacy app */
+@font-face {
+  font-family: 'Aniron';
+  src: url('/fonts/Aniron.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RingbearerMedium';
+  src: url('/fonts/RingbearerMedium.ttf') format('truetype');
+}
+
+/* Base styles */
+@layer base {
+  body {
+    margin: 0;
+    font-family: 'Aniron', system-ui, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(51, 65, 85, 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.5);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 191, 36, 0.7);
+}
+
+/* Tooltip styles from legacy app with modern updates */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  font-style: italic;
+  color: rgb(251, 191, 36);
+  border-bottom: 1px dotted rgb(251, 191, 36);
+  transition: all 0.2s ease;
+}
+
+.tooltip:hover {
+  color: rgb(252, 211, 77);
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 320px;
+  background: linear-gradient(135deg, rgb(30, 41, 59) 0%, rgb(15, 23, 42) 100%);
+  color: rgb(226, 232, 240);
+  text-align: left;
+  border-radius: 12px;
+  padding: 16px;
+  position: absolute;
+  z-index: 100;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -160px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  font-style: normal;
+  font-size: 14px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  transform: translateY(10px);
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add arrow to tooltip */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: rgb(30, 41, 59) transparent transparent transparent;
+}
+
+/* Prose styles for better text rendering */
+.prose ul, .prose ol {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Smooth transitions for interactive elements */
+button, a {
+  transition: all 0.2s ease;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade in animation for content */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}

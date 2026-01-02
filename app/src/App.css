@@ -1,0 +1,21 @@
+/* App specific styles */
+.app {
+  font-family: 'Aniron', system-ui, sans-serif;
+}
+
+/* Story display styling */
+.story-display {
+  min-height: 300px;
+}
+
+/* Ensure prose styles work with our content */
+.prose b,
+.prose strong {
+  font-weight: bold;
+}
+
+.prose ul,
+.prose ol {
+  margin-left: 1.5rem;
+}
+
