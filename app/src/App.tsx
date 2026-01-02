@@ -1,35 +1,91 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useInkStory } from './hooks/useInkStory';
+import { ControlBar } from './components/ControlBar';
+import { StoryDisplay } from './components/StoryDisplay';
+import { Choices } from './components/Choices';
+import { HistoryPanel } from './components/HistoryPanel';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    currentStep,
+    history,
+    isLoading,
+    makeChoice,
+    restart,
+    saveGame,
+    loadGame,
+    hasSavedGame,
+    warriorsOfMiddleEarth,
+    toggleWarriorsMode,
+  } = useInkStory();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+            War of the Ring Bot
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      {/* Header */}
+      <header className="bg-gray-800 text-white py-6 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-4xl font-bold text-center font-['RingbearerMedium']">
+            War of the Ring Bot
+          </h1>
+          <p className="text-center text-gray-300 mt-2">v1.6 - Modern Edition</p>
+        </div>
+      </header>
+
+      {/* Control Bar */}
+      <ControlBar
+        onRestart={restart}
+        onSave={saveGame}
+        onLoad={loadGame}
+        hasSavedGame={hasSavedGame}
+        warriorsMode={warriorsOfMiddleEarth}
+        onWarriorsModeToggle={toggleWarriorsMode}
+      />
+
+      {/* Main Content Area */}
+      <main className="py-8">
+        {currentStep && (
+          <>
+            {/* Story Text Display */}
+            <StoryDisplay
+              text={currentStep.text}
+              warriorsMode={warriorsOfMiddleEarth}
+            />
+
+            {/* Choices */}
+            <Choices
+              choices={currentStep.choices}
+              onChoiceSelect={makeChoice}
+              warriorsMode={warriorsOfMiddleEarth}
+            />
+          </>
+        )}
+
+        {!currentStep && (
+          <div className="text-center py-12">
+            <p className="text-gray-600 dark:text-gray-400">
+              The story has ended. Click Restart to begin again.
+            </p>
+          </div>
+        )}
+      </main>
+
+      {/* History Panel */}
+      <HistoryPanel history={history} />
+    </div>
+  );
 }
 
-export default App
+export default App;
